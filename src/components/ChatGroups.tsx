@@ -13,7 +13,7 @@ export default function ChatGroups(props: { session: Session }) {
   const groupsRef = useRef<HTMLDivElement>(null)
   
   const socketInitializer = () => {
-    const newSocket = io("localhost:3000", {
+    const newSocket = io("http://89.116.139.141:3000", {
       path: "/api/socket/io",
       addTrailingSlash: false,
       transports: ["polling", "websocket"],
@@ -44,7 +44,7 @@ export default function ChatGroups(props: { session: Session }) {
   useEffect(() => {
     const getGroups = async () => {
       try {
-        const res = await fetch('/api/user', {
+        const res = await fetch('http://89.116.139.141:3000/api/user', {
           method: 'get',
           headers: {
             'Content-Type': 'application/json',

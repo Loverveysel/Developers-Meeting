@@ -20,7 +20,7 @@ export default function Posts(props: {session : Session, categories: string[]}) 
 
     useEffect(()=>{
         const get = async()=>{
-            const res = await fetch('http://localhost:3000/api/posts', {
+            const res = await fetch('http://89.116.139.141:3000/api/posts', {
               method: "get",
               headers: {
                 "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export default function Posts(props: {session : Session, categories: string[]}) 
             })
             const parsedRes = await res.json()
             setPosts(parsedRes)
-            const res2 = await fetch('http://localhost:3000/api/user')
+            const res2 = await fetch('http://89.116.139.141:3000/api/user')
             const parsedRes2 = await res2.json()
             setUser(parsedRes2)
         }   
@@ -42,7 +42,7 @@ export default function Posts(props: {session : Session, categories: string[]}) 
         const query = props.categories.join('&')
 
         const get = async()=>{
-            const res = await fetch('http://localhost:3000/api/posts/' + query, {
+            const res = await fetch('http://89.116.139.141:3000/api/posts/' + query, {
               method: "get",
               headers: {
                 "Content-Type": "application/json"

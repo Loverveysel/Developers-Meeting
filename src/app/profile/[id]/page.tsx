@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react'
 import Navbar from '@/components/Navbar'
 import ChatGroups from '@/components/ChatGroups'
 import Post from '@/components/Post'
-import { Session } from 'inspector'
 
 export default function Page({ params }: { params: { id: string } }){
     const {data: session} = useSession()    
@@ -16,7 +15,7 @@ export default function Page({ params }: { params: { id: string } }){
 
     useEffect(()=>{
         const getUser = async()=>{
-            const res = await fetch(`http://localhost:3000/api/user`)
+            const res = await fetch(`http://89.116.139.141:3000/api/user`)
             const data = await res.json()
             
             setSessionUser(data)
@@ -26,7 +25,7 @@ export default function Page({ params }: { params: { id: string } }){
 
     useEffect(()=>{
         const getUser = async()=>{
-            const res = await fetch(`http://localhost:3000/api/user/${id}`)
+            const res = await fetch(`http://89.116.139.141:3000/api/user/${id}`)
             const data = await res.json()
             console.log(data);
             

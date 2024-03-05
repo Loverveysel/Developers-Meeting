@@ -40,14 +40,14 @@ export default function RegisterFormProfile() {
       body.append('fileType', "pp")
       body.append("id", id)
       body.append("profilePicture", image)
-      await fetch("http://localhost:3000/api/pp", {
+      await fetch("http://89.116.139.141:3000/api/pp", {
         method: "POST",
         body
       })
     }
 
     const createUser = async (user: any) => {      
-      const response = await fetch("http://localhost:3000/api/user", {
+      const response = await fetch("http://89.116.139.141:3000/api/user", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

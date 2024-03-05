@@ -14,7 +14,7 @@ export default function ProfilePicture({ session }: { session: Session | null })
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/user`, {
+        const res = await fetch(`http://89.116.139.141:3000/api/user`, {
           method: "get",
           headers: {
             "Content-Type": "application/json",
