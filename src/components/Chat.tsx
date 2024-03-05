@@ -18,7 +18,7 @@ export default function Chat(props: { group: any, user: any }) {
             content: chatInput,
         }
 
-        const res = await fetch('http://89.116.139.141:3000/api/messages', {
+        const res = await fetch('/api/messages', {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -27,7 +27,7 @@ export default function Chat(props: { group: any, user: any }) {
         })
         const message = await res.json()
 
-        const socketRes = await fetch("http://89.116.139.141:3000/api/socket/messages/" + message.id, {
+        const socketRes = await fetch("/api/socket/messages/" + message.id, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"

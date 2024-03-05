@@ -4,7 +4,6 @@ import Image from 'next/image'
 import {  useDispatch } from 'react-redux'
 import  { FinalStep } from '@/store/features/signup-slice'
 import { useAppSelector } from '@/store/store'
-import { User } from '../../prisma/generated'
 import navigate from '@/lib/navigate'
 
 export default function RegisterFormProfile() {
@@ -40,14 +39,14 @@ export default function RegisterFormProfile() {
       body.append('fileType', "pp")
       body.append("id", id)
       body.append("profilePicture", image)
-      await fetch("http://89.116.139.141:3000/api/pp", {
+      await fetch("/api/pp", {
         method: "POST",
         body
       })
     }
 
     const createUser = async (user: any) => {      
-      const response = await fetch("http://89.116.139.141:3000/api/user", {
+      const response = await fetch("/api/user", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

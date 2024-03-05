@@ -15,7 +15,7 @@ export default function SignUpPage() {
     const startInterval = () => {
       const intervalId = setInterval(() => {
         setStep((prevStep) => prevStep + 0.02);
-      }, 10); // Her 1000 milisaniyede bir artır
+      }, 10)
   
       return intervalId;
     };
@@ -47,7 +47,6 @@ export default function SignUpPage() {
     }
     
     useEffect(() => {
-      // Temizleme işlemi useEffect içinde gerçekleştiriliyor
       return () => {
         if (step >= targetVal) {
           stopInterval(intervalId)

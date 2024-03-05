@@ -94,7 +94,7 @@ export default function Post(props:{post : Post | any, user: any}) {
         setGoodIdeaLength(goodIdeaLength - 1)
       }
 
-      const res = await fetch('http://89.116.139.141:3000/api/goodIdea', {
+      const res = await fetch('/api/goodIdea', {
         method: 'post',
         headers:{
           "Content-Type": "application/json"
@@ -128,7 +128,7 @@ export default function Post(props:{post : Post | any, user: any}) {
         setBadIdeaLength(badIdeaLength - 1)
       }
 
-      const res = await fetch('http://89.116.139.141:3000/api/badIdea', {
+      const res = await fetch('/api/badIdea', {
         method: 'post',
         headers:{
           "Content-Type": "application/json"
@@ -168,7 +168,7 @@ export default function Post(props:{post : Post | any, user: any}) {
         setInterestLength(interestLength - 1)
       }
 
-      const res = await fetch('http://89.116.139.141:3000/api/interest', {
+      const res = await fetch('/api/interest', {
         method: 'post',
         headers:{
           "Content-Type": "application/json"

@@ -67,7 +67,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
     }, [])
 
     const handleAcceptInvitation = async (invitation: any)=>{
-      const res = await fetch('http://89.116.139.141:3000/api/invitation/accept', {
+      const res = await fetch('/api/invitation/accept', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
     }
 
     const handleDeclineInvitation = async (invitation: any)=>{
-      const res = await fetch('http://89.116.139.141:3000/api/invitation/decline', {
+      const res = await fetch('/api/invitation/decline', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

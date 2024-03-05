@@ -42,7 +42,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         id: newUser.id
       },
       data: {
-        profilePicture: "http://89.116.139.141:3000/api/pp/" + newUser.id as string
+        profilePicture: "/api/pp/" + newUser.id as string
       }
     })
   
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         body.append('fileType', "pp")
         body.append("id", id)
         body.append("profilePicture", image)
-        await fetch("http://89.116.139.141:3000/api/pp", {
+        await fetch("/api/pp", {
           method: "POST",
           body
             })

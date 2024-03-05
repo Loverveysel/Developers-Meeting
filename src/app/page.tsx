@@ -37,7 +37,7 @@ export default function HomePage() {
         content: "Hi it is my first messages",
         name: "MygROUP"
       }
-      const res = await fetch('http://89.116.139.141:3000/api/messages', {
+      const res = await fetch('/api/messages', {
         method: "post",
         headers:{
           "Content-Type" : "application/json"
@@ -86,7 +86,7 @@ export default function HomePage() {
 
     useEffect(()=>{
       const getUser = async()=>{
-        const res = await fetch('http://89.116.139.141:3000/api/user', {
+        const res = await fetch('/api/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

@@ -14,7 +14,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
     useEffect(()=>{
         const getUser = async()=>{
-            const res = await fetch(`http://89.116.139.141:3000/api/user`)
+            const res = await fetch(`/api/user`)
             const data = await res.json()
             setUser(data)
         }
@@ -23,7 +23,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
     useEffect(()=>{
         const getPost = async()=>{
-            const res = await fetch(`http://89.116.139.141:3000/api/post/${id}`)
+            const res = await fetch(`/api/post/${id}`)
             const data = await res.json()
             console.log(data)
             
