@@ -9,14 +9,14 @@ export default function Footer() {
         </aside> 
         <nav>
             <h6 className="footer-title">Company</h6> 
-            <a className="link link-hover" href='/about-us'>About us</a>
+            <a className="link link-hover" href='/footer/about-us'>About us</a>
             <a className="link link-hover">Contact</a>
         </nav> 
         <nav>
             <h6 className="footer-title">Legal</h6> 
-            <a className="link link-hover" href='/terms-of-use'>Terms of use</a>
-            <a className="link link-hover" href='/privacy-policy'>Privacy policy</a>
-            <a className="link link-hover" href='/cookie-policy'>Cookie policy</a>
+            <a className="link link-hover" href='/footer/terms-of-use'>Terms of use</a>
+            <a className="link link-hover" href='/footer/privacy-policy'>Privacy policy</a>
+            <a className="link link-hover" href='/footer/cookie-policy'>Cookie policy</a>
         </nav>
 </footer>
   )

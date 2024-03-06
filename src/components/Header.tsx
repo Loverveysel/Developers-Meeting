@@ -94,7 +94,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
 
     return (
         <header className="flex flex-row sticky justify-between max-h-28 min-h-28 bg-secondary p-4 border-b-2 border-b-gray-300 w-full">
-        <h2 className="text-2xl font-bold leading-7 bg-gradient-to-r my-auto from-purple-400 to-pink-600 bg-clip-text text-transparent sm:truncate sm:text-3xl mg mr-10">Developers Meeting </h2>
+        <h2  onClick={()=>{navigate("/")}} className="cursor-pointer text-2xl font-bold leading-7 bg-gradient-to-r my-auto from-purple-400 to-pink-600 bg-clip-text text-transparent sm:truncate sm:text-3xl mg mr-10">Developers Meeting </h2>
         <section className="flex mx-auto">
           
         </section>
