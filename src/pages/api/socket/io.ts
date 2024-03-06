@@ -1,10 +1,6 @@
 import type { NextApiRequest } from "next"
 import type { NextApiResponseWithSocket } from "@/types/socket"
 import { Server } from "socket.io"
-import { checkAuthB } from "@/lib/checkAuth"
-import { NextResponse } from "next/server"
-import { findUser } from "@/lib/findUser"
-
 
 const socketHandler = async (req: NextApiRequest, res: NextApiResponseWithSocket) => {
     if (!res.socket.server.io) {

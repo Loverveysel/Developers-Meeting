@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const directoryPath = "./files/pp";
+    const directoryPath = "../files/pp";
     if (!existsSync(directoryPath)) {
       mkdirSync(directoryPath, { recursive: true }); // Create nested directories if needed
     }
