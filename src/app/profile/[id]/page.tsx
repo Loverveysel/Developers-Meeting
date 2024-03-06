@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import Navbar from '@/components/Navbar'
 import ChatGroups from '@/components/ChatGroups'
 import Post from '@/components/Post'
+import Footer from '@/components/Footer'
 
 export default function Page({ params }: { params: { id: string } }){
     const {data: session} = useSession()    
@@ -136,6 +137,9 @@ export default function Page({ params }: { params: { id: string } }){
                 </div>
                 <div className='fixed bottom-0 right-0'>
                   <ChatGroups session={session}/>
+                </div>
+                <div>
+                    <Footer/>
                 </div>
             </main>
         )    

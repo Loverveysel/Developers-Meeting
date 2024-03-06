@@ -214,7 +214,7 @@ export default function Post(props:{post : Post | any, user: any}) {
     }
 
   if (props.post) return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center" onClick={()=>{navigate("/post/" + props.post.id)}}>
       <div className="max-w-2xl container mt-3 bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div>
           <div className='flex flex-row '>

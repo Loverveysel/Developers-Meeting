@@ -114,7 +114,7 @@ export default function ChatGroups(props: { session: Session }) {
   if (groups) {
     return (<>
     
-        <div className='bg-success rounded-3xl p-2 shadow-lg z-50 max-w-xl max-h-58'>
+        <div className='bg-success rounded-3xl p-2 shadow-lg z-50 max-w-xl min-w-xl min-h-58 max-h-58'>
           <div className={`my-auto border-neutral border-2 border-solid w-8 h-8 rounded-full inline-flex items-center justify-between bg-base-100 ${!isOpen ? 'm-auto rotate-180 hover:cursor-pointer' : ' justify-start hover:cursor-pointer'}`} onClick={handleOpenCloseButton}>
             <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/expand-arrow--v1.png" alt=""/>
           </div>
