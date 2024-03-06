@@ -50,7 +50,7 @@ export default function CreatePost(props: {session: Session}) {
   useEffect(()=>{
     const fetchUser = async ()=>{
       try {
-        const user = await fetch('http://89.116.139.141:3000/api/user', {
+        const user = await fetch('/api/user', {
         method: 'get',
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export default function CreatePost(props: {session: Session}) {
       domains,
     } 
     
-    const res = await fetch('http://89.116.139.141::3000/api/post', {
+    const res = await fetch('/api/post', {
       method: "post",
       headers:{
         "Content-Type": "application/json"

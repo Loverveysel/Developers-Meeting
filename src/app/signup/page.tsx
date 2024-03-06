@@ -83,7 +83,6 @@ export default function SignUpPage() {
       <div className="divider my-auto"></div> 
 
       <div className="relative m-auto flex">
-
         <div className={`m-auto transition-opacity transition-transform transition-opacity duration-500 ease-in-out ${step === 1 ?  'translate-x-0 opacity-100' : (step > 1 && step < 2) ? '-translate-x-full opacity-15'  : '-translate-x-full opacity-0 hidden' }`}>
           <RegisterFormPersonal/>
         </div>
