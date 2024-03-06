@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Post } from '../../prisma/generated'
 import navigate from '@/lib/navigate'
 import { useAppDispatch } from '@/store/store'
 import { alert } from '@/store/features/alert-slice'
 import { useAppSelector } from '@/store/store'
 
-export default function Post(props:{post : Post | any, user: any}) {
+export default function Post(props:{post : any, user: any}) {
     const [isGoodIdea, setIsGoodIdea] = useState<boolean>(false)
     const [isBadIdea, setIsBadIdea] = useState<boolean>(false)
     const [isInterest, setIsInterest] = useState<boolean>(false)
@@ -214,7 +213,7 @@ export default function Post(props:{post : Post | any, user: any}) {
     }
 
   if (props.post) return (
-    <div className="flex justify-center items-center" onClick={()=>{navigate("/post/" + props.post.id)}}>
+    <div className="flex justify-center items-center">
       <div className="max-w-2xl container mt-3 bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div>
           <div className='flex flex-row '>
@@ -225,13 +224,13 @@ export default function Post(props:{post : Post | any, user: any}) {
             }
           </div>
           <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">{props.post.title}</h1>
-          <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">{props.post.body}</p>
+          <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer" onClick={()=>{navigate("/post/" + props.post.id)}}>{props.post.body}</p>
         </div>
         <div className="flex p-4 justify-between">
           <div className="flex items-center space-x-2">
           <div className="avatar" onClick={()=>{navigate("/profile/" + props.post.userId)}}>
             <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer" >
-              <img src={`http://localhost:3000/api/pp/${props.post.user.id}`} />
+              <img src={props.post.user.profilePicture} />
             </div>
           </div>
             <h2 className="text-gray-800 font-bold cursor-pointer">{props.post.user.firstName}</h2>
