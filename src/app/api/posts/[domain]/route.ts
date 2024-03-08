@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 import { checkAuthA } from "@/lib/checkAuth"
 import { findUser } from "@/lib/findUser"
 

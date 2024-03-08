@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Post from './Post'
 import { Session } from 'next-auth';
-
-interface PostType {
-    id: string;
-    title: string;
-    body: string;
-    userId: string;
-    programmingLanguages: string[];
-    domains: string[];
-    createdAt: Date;
-    updatedAt: Date;
-  }
-  
+import Post from './Post'
 
 export default function Posts(props: {session : Session, categories: string[]}) {
-    const [posts, setPosts] = useState<PostType[]>([])
+    const [posts, setPosts] = useState<any[]>([])
     const [user, setUser] = useState()
 
     useEffect(()=>{

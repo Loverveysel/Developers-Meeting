@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { checkAuthA } from "@/lib/checkAuth"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 
 export async function GET(req: NextRequest, context : any) {
     const { params } = context

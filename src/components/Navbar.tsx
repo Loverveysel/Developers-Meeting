@@ -4,14 +4,10 @@ import { useRouter } from 'next/navigation'
 const Navbar = (props: {user: any}) => {
   const router = useRouter()
   
-  // Array containing navigation items
   const navItems = [
     { id: 1, icon: 'https://img.icons8.com/ios/50/home--v1.png',  width: 48, heigth: 48, href: "/"},
     { id: 2, icon: 'https://img.icons8.com/sf-regular/48/administrator-male.png' , width: 48, heigth: 48, href: "/profile/" + props.user.id},   
-  ]
-  
-  console.log(props.user.chatGroups[0].chatGroup.name)
-  
+  ]  
 
   if (props.user) {
       return (

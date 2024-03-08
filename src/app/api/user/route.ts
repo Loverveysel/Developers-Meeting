@@ -1,6 +1,6 @@
 import { checkAuthA } from "@/lib/checkAuth"
 import { findUser } from "@/lib/findUser"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -42,23 +42,23 @@ export async function POST(req: NextRequest, res: NextResponse) {
         id: newUser.id
       },
       data: {
-        profilePicture: "/api/pp/" + newUser.id as string
+        profilePicture: "https://developersmeeting.com/api/pp/" + newUser.id as string
       }
     })
   
     if (typeof user.profilePicture == "string") {
 
         const uploadToServer = async (id: string) => {
-        const res = await fetch(user.profilePicture)
-        const blob = await res.blob()
-        const image = new File([blob],"profilePicture.png") 
-        const body = new FormData()
-        body.append('fileType', "pp")
-        body.append("id", id)
-        body.append("profilePicture", image)
-        await fetch("/api/pp", {
-          method: "POST",
-          body
+          const res = await fetch(user.profilePicture)
+          const blob = await res.blob()
+          const image = new File([blob],"profilePicture.png") 
+          const body = new FormData()
+          body.append('fileType', "pp")
+          body.append("id", id)
+          body.append("profilePicture", image)
+          await fetch("/api/pp", {
+            method: "POST",
+            body
             })
         }
 

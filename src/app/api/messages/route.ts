@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import authOptions from "../auth/[...nextauth]/options"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 import { checkAuthA } from "@/lib/checkAuth"
 
 export async function POST(req: NextRequest, res: NextResponse) {

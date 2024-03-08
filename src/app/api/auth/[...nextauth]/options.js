@@ -1,5 +1,5 @@
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient } from "../../../../../prisma/generated";
+import GoogleProvider from "next-auth/providers/google"
+import { PrismaClient } from "../../../../../prisma/generated"
 
 const prisma = new PrismaClient()
 
@@ -9,6 +9,7 @@ const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      
     }),
   ],
   callbacks: {
@@ -16,7 +17,7 @@ const authOptions = {
       if (account.provider === "google") {
         const { name, email } = user;
         try {
-          const userExists = await prisma.user.findFirst({where:{ email }});
+          const userExists = await prisma.user.findFirst({where:{ email }})
 
           if (!userExists) {
             return user

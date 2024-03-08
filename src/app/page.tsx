@@ -10,7 +10,7 @@ import Posts from '@/components/Posts'
 import CreatePost from '@/components/CreatePost'
 import ChatGroups from '@/components/ChatGroups'
 import Footer from '@/components/Footer'
-import softwareDevelopmentCategories from '@/utils/software-development-categories'
+import softwareDevelopmentCategories from '@/lib/software-development-categories'
 import Alert from '@/components/Alert'
 import { useRouter } from 'next/navigation'
 

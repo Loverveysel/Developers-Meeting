@@ -6,8 +6,8 @@ import { createPostClick } from '@/store/features/create-post-slice'
 import { useAppDispatch } from '../store/store'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import ProfilePicture from './ProfilePicture'
 import { useRouter } from 'next/navigation'
+import ProfilePicture from './ProfilePicture'
 
 export default function Header(props:{session:Session | null, getStarted: boolean}) {
     const [loginClicked, setLoginClicked] = useState(false)
@@ -35,33 +35,30 @@ export default function Header(props:{session:Session | null, getStarted: boolea
     }
 
     useEffect(()=>{
-
-      if (!ignoerUseEffect) {
-        ignoerUseEffect = true
-        let user: any
-        const getUser = async()=>{
-        const res = await fetch('/api/user', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        user = await res.json()
-
-        for (let i = 0; i < user.posts.length; i++) {
-          const post = user.posts[i]
-          console.log("i : ", i);
-          
-          for (let j = 0; j < post.chatGroup[0].invitations.length; j++) {
-            const invitation = post.chatGroup[0].invitations[j];
-            setInvitations((prevInvitations)=>[...prevInvitations, invitation])
-            console.log("j: ", j);
+      if (props.session) {
+        if (!ignoerUseEffect) {
+          ignoerUseEffect = true
+          let user: any
+          const getUser = async()=>{
+          const res = await fetch('/api/user', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          user = await res.json()
+  
+          for (let i = 0; i < user.posts.length; i++) {
+            const post = user.posts[i]
             
+            for (let j = 0; j < post.chatGroup[0].invitations.length; j++) {
+              const invitation = post.chatGroup[0].invitations[j];
+              setInvitations((prevInvitations)=>[...prevInvitations, invitation])            
+            }
           }
         }
-
-      }
-      getUser()
+        getUser()
+        }    
       }
       
     }, [])

@@ -5,11 +5,6 @@ import Providers from '../Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Meet Developers',
-  description: 'An application for make developers meet each one. '
-}
-
 export default function RootLayout({
   children,
 }: {

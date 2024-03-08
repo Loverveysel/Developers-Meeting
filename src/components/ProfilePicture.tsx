@@ -3,13 +3,8 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
-interface User {
-  id: string
-  profilePicture: string | null // Adjust the type based on your actual data structure
-}
-
 export default function ProfilePicture({ session }: { session: Session | null }) {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<any | null>(null)
   const router = useRouter()
   
   useEffect(() => {
@@ -25,17 +20,16 @@ export default function ProfilePicture({ session }: { session: Session | null })
         const userData = await res.json()
         setUser(userData)
       } catch (error) {
-        console.error("Error fetching user:", error)
+        throw Error("Error fetching user")
       }
     }
-
     fetchUser()
   }, [session])
 
   if (!user) {
     return (<>
         <span className="loading loading-ring loading-xs"></span>
-    </>) // You might want to return a loading indicator or handle the loading state
+    </>)
   }
 
   if (user.profilePicture) {
@@ -51,8 +45,6 @@ export default function ProfilePicture({ session }: { session: Session | null })
       
     )
   } else {
-    console.log(user)
-
     return (
       <Image src={session?.user?.image as string} width={50} height={50} alt="" className="rounded-full"/>
     )

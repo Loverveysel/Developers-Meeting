@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import { signIn } from 'next-auth/react'
 
-
 export default function LoginForm(props:{show:Boolean}) {
   
   return (

@@ -22,12 +22,6 @@ export default function ChatGroups(props: { session: Session }) {
     newSocket.on('connect', () => {
       console.log("socket connected")
     })
-
-    newSocket.on('try', () => {
-      console.log("tried")
-    })
-
-    console.log(socket);
     
     return newSocket
   }
@@ -60,7 +54,7 @@ export default function ChatGroups(props: { session: Session }) {
           setSelectedGroup(chatGroups[0])
         }
       } catch (error) {
-        console.error('Error fetching groups:', error)
+        throw Error("Error fetching user:")
       }
     }
 

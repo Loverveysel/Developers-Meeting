@@ -1,6 +1,6 @@
 import { checkAuthB } from "@/lib/checkAuth";
 import { NextApiResponseWithSocket } from "@/types/socket"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 import { NextApiRequest } from "next"
 import { NextResponse } from "next/server"
 import { findUser } from "@/lib/findUser";

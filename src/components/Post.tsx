@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/store/store'
 import { alert } from '@/store/features/alert-slice'
-import { useAppSelector } from '@/store/store'
 import { useRouter } from 'next/navigation'
 
 export default function Post(props:{post : any, user: any}) {
@@ -19,8 +18,6 @@ export default function Post(props:{post : any, user: any}) {
     const [interestIdeaHover, setinterestHover] = useState<boolean>(false)
 
     const router = useRouter()
-
-    const Alert = useAppSelector((state)=>{return state.alertSlice.value.alert})
 
     const dispatch = useAppDispatch()
 

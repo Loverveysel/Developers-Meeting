@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Post } from '../../prisma/generated'
 import { Session } from 'next-auth'
 import { useAppDispatch } from '@/store/store'
 import { createPostClick } from '@/store/features/create-post-slice'
-import { handleInput } from '@/utils/methods'
-import softwareDevelopmentCategories from '@/utils/software-development-categories'
+import { handleInput } from '@/lib/methods'
+import softwareDevelopmentCategories from '@/lib/software-development-categories'
 import Select, {ActionMeta, MultiValue} from 'react-select'
 import makeAnimated from 'react-select/animated'
 

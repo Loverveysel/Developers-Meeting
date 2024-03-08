@@ -1,10 +1,10 @@
 "use client"
 import React, { useState }from 'react'
-import softwareDevelopmentCategories from '@/utils/software-development-categories'
 import Select, {ActionMeta, MultiValue} from 'react-select'
-import makeAnimated from 'react-select/animated'
 import { useAppDispatch } from '@/store/store'
 import {EducationExperience, Domains, ProgrammingLanguages } from '@/store/features/signup-slice'
+import softwareDevelopmentCategories from '@/lib/software-development-categories'
+import makeAnimated from 'react-select/animated'
 
 const animatedComponent = makeAnimated()
 
@@ -30,7 +30,6 @@ export default function RegisterFormInterests() {
         selectedOptions: MultiValue<Option>,
         actionMeta: ActionMeta<Option>
       ) => {
-        // Seçilen değerleri domains dizisine atar
         if (selectedOptions) {
             const newDomains = selectedOptions.map(element => element.value)
             setDomains(newDomains)

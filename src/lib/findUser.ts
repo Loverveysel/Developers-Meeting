@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import prisma from "@/utils/prisma";
+import prisma from "@/lib/prisma";
 
 export async function findUser(session: Session |null) {
     const email = session?.user?.email as string
