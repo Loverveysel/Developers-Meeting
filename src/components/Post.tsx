@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import navigate from '@/lib/navigate'
 import { useAppDispatch } from '@/store/store'
 import { alert } from '@/store/features/alert-slice'
 import { useAppSelector } from '@/store/store'
+import { useRouter } from 'next/navigation'
 
 export default function Post(props:{post : any, user: any}) {
     const [isGoodIdea, setIsGoodIdea] = useState<boolean>(false)
@@ -17,6 +17,8 @@ export default function Post(props:{post : any, user: any}) {
     const [goodIdeaHover, setGoodIdeaHover] = useState<boolean>(false)
     const [badIdeaHover, setBadIdeaHover] = useState<boolean>(false)
     const [interestIdeaHover, setinterestHover] = useState<boolean>(false)
+
+    const router = useRouter()
 
     const Alert = useAppSelector((state)=>{return state.alertSlice.value.alert})
 
@@ -224,11 +226,11 @@ export default function Post(props:{post : any, user: any}) {
             }
           </div>
           <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">{props.post.title}</h1>
-          <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer" onClick={()=>{navigate("/post/" + props.post.id)}}>{props.post.body}</p>
+          <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer" onClick={()=>{router.push("/post/" + props.post.id)}}>{props.post.body}</p>
         </div>
         <div className="flex p-4 justify-between">
           <div className="flex items-center space-x-2">
-          <div className="avatar" onClick={()=>{navigate("/profile/" + props.post.userId)}}>
+          <div className="avatar" onClick={()=>{router.push("/profile/" + props.post.userId)}}>
             <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer" >
               <img src={props.post.user.profilePicture} />
             </div>

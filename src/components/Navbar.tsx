@@ -1,8 +1,8 @@
-import { Session } from 'next-auth';
-import React, { useEffect, useState } from 'react'
-import navigate from '@/lib/navigate';
+import React from 'react'
+import { useRouter } from 'next/navigation'
 
 const Navbar = (props: {user: any}) => {
+  const router = useRouter()
   
   // Array containing navigation items
   const navItems = [
@@ -10,7 +10,7 @@ const Navbar = (props: {user: any}) => {
     { id: 2, icon: 'https://img.icons8.com/sf-regular/48/administrator-male.png' , width: 48, heigth: 48, href: "/profile/" + props.user.id},   
   ]
   
-  console.log(props.user.chatGroups[0].chatGroup.name);
+  console.log(props.user.chatGroups[0].chatGroup.name)
   
 
   if (props.user) {
@@ -28,11 +28,9 @@ const Navbar = (props: {user: any}) => {
     
                 className='p-5 '
               >
-                <a href={item.href}>
-                  <button type="button" className='btn bg-transparent border-none hover:bg-accent'>
-                      <img  src={item.icon} alt="" width={item.width} height={item.heigth} />
-                  </button>
-                </a>
+                <button type="button" className='btn bg-transparent border-none hover:bg-accent' onClick={()=>{router.push(item.href)}}>
+                    <img  src={item.icon} alt="" width={item.width} height={item.heigth} />
+                </button>
               </li>
             ))}
           </ul>
@@ -57,7 +55,7 @@ const Navbar = (props: {user: any}) => {
           </div>
 
         </div>
-      );
+      )
   }
   else{
     return (
@@ -65,6 +63,6 @@ const Navbar = (props: {user: any}) => {
     )
   }
 
-};
+}
 
-export default Navbar;
+export default Navbar

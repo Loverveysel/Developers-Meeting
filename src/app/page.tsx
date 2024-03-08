@@ -1,19 +1,21 @@
 "use client"
-import Header from '@/components/Header'
-import LoginForm from '@/components/LoginForm'
-import SignupForm from '@/components/SignupForm'
 import React, { useEffect, useState }  from 'react'
 import { useAppSelector, useAppDispatch } from '../store/store'
 import { loginClick, signupClick } from '@/store/features/login-slice'
+import { signOut, useSession } from 'next-auth/react'
+import Header from '@/components/Header'
+import LoginForm from '@/components/LoginForm'
+import SignupForm from '@/components/SignupForm'
 import Posts from '@/components/Posts'
 import CreatePost from '@/components/CreatePost'
 import ChatGroups from '@/components/ChatGroups'
-import { signOut, useSession } from 'next-auth/react'
 import Footer from '@/components/Footer'
 import softwareDevelopmentCategories from '@/utils/software-development-categories'
 import Alert from '@/components/Alert'
+import { useRouter } from 'next/navigation'
 
 export default function HomePage() {
+  const router = useRouter()
     const {status, data: session} =  useSession() 
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -133,9 +135,11 @@ export default function HomePage() {
                 <h1 className="mb-5 text-5xl font-bold">Connect. Collaborate. Code Together. MeetDeveloper - Where Passionate Coders Unite</h1>
                 <p className="mb-5">Become a part of the MeetDeveloper movement. Connect with passionate developers, share your expertise, and contribute to innovative projects that shape the future of coding..</p>
                 <button type='button' onClick={handleGetStartedButton} className="btn btn-primary">Get Started</button>
+                <button type="button" onClick={()=>{router.push("/footer/about-us")}}> Hello</button>
                 <div className=''>
-                  <img  className={"absolute z-50 animate-pulse bottom-1/2 left-1/2 rotate-180 h-2/3 w-1/3 "} style={!getStartedClicked ? {display: "none"} : {opacity: 1}} src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/twisted-arrow-back-red-icon.png" alt="" />
+                  <img className={"absolute z-50 animate-pulse bottom-1/2 left-1/2 rotate-180 h-2/3 w-1/3 "} style={!getStartedClicked ? {display: "none"} : {opacity: 1}} src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/twisted-arrow-back-red-icon.png" alt="" />
                 </div>
+              
               </div>
             </div>
           </div>

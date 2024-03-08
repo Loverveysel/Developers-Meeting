@@ -1,7 +1,7 @@
-import navigate from "@/lib/navigate"
 import { Session } from "next-auth"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 interface User {
   id: string
@@ -10,7 +10,8 @@ interface User {
 
 export default function ProfilePicture({ session }: { session: Session | null }) {
   const [user, setUser] = useState<User | null>(null)
-
+  const router = useRouter()
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -40,11 +41,14 @@ export default function ProfilePicture({ session }: { session: Session | null })
   if (user.profilePicture) {
     
     return (
-      <div className="avatar cursor-pointer" onClick={()=>{navigate("/profile/" + user.id)}}>
-      <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-        <img src={user.profilePicture} />
-      </div>
-    </div>
+      <a href={"/profile/" + user.id}>
+        <div className="avatar cursor-pointer" onClick={()=>{router.push("/profile/" + user.id)}}>
+          <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={user.profilePicture} />
+          </div>
+        </div>
+      </a>
+      
     )
   } else {
     console.log(user)
