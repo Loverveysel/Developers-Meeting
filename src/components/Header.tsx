@@ -7,16 +7,16 @@ import { useAppDispatch } from '../store/store'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import ProfilePicture from './ProfilePicture'
-import navigate from '@/lib/navigate'
+import { useRouter } from 'next/navigation'
 
 export default function Header(props:{session:Session | null, getStarted: boolean}) {
-
     const [loginClicked, setLoginClicked] = useState(false)
     const [signupClicked, setSignupClicked] = useState(false)
     const [createPostClicked, setCreatePostClicked] = useState(false)
     const [invitations, setInvitations] = useState<any[]>([])
     let ignoerUseEffect: boolean = false
 
+    const router = useRouter()
     const dispatch = useAppDispatch()
     
     const handleLoginButton = ()=>{
@@ -94,7 +94,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
 
     return (
         <header className="flex flex-row sticky justify-between max-h-28 min-h-28 bg-secondary p-4 border-b-2 w-full border-b-gray-300">
-        <h2  onClick={()=>{navigate("/")}} className="cursor-pointer text-2xl font-bold leading-7 bg-gradient-to-r my-auto from-purple-400 to-pink-600 bg-clip-text text-transparent sm:truncate sm:text-3xl mg mr-10">Developers Meeting </h2>
+        <h2  onClick={()=>{router.push("/")}} className="cursor-pointer text-2xl font-bold leading-7 bg-gradient-to-r my-auto from-purple-400 to-pink-600 bg-clip-text text-transparent sm:truncate sm:text-3xl mg mr-10">Developers Meeting </h2>
         <section className="flex mx-auto">
           
         </section>
@@ -131,7 +131,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
                       {invitations &&
                         invitations.map((invitation: any)=>(
                           <li className='flex flex-row items-center justify-center'>
-                            <div className="avatar" onClick={()=>{navigate("/profile/" + invitation.senderId)}}>
+                            <div className="avatar" onClick={()=>{router.push("/profile/" + invitation.senderId)}}>
                               <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer" >
                                 <img src={invitation.sender.profilePicture} />
                               </div>
