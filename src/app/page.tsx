@@ -135,7 +135,6 @@ export default function HomePage() {
                 <h1 className="mb-5 text-5xl font-bold">Connect. Collaborate. Code Together. MeetDeveloper - Where Passionate Coders Unite</h1>
                 <p className="mb-5">Become a part of the MeetDeveloper movement. Connect with passionate developers, share your expertise, and contribute to innovative projects that shape the future of coding..</p>
                 <button type='button' onClick={handleGetStartedButton} className="btn btn-primary">Get Started</button>
-                <button type="button" onClick={()=>{router.push("/footer/about-us")}}> Hello</button>
                 <div className=''>
                   <img className={"absolute z-50 animate-pulse bottom-1/2 left-1/2 rotate-180 h-2/3 w-1/3 "} style={!getStartedClicked ? {display: "none"} : {opacity: 1}} src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/twisted-arrow-back-red-icon.png" alt="" />
                 </div>
