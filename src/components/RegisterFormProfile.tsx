@@ -4,7 +4,7 @@ import Image from 'next/image'
 import {  useDispatch } from 'react-redux'
 import  { FinalStep } from '@/store/features/signup-slice'
 import { useAppSelector } from '@/store/store'
-import navigate from '@/lib/navigate'
+import { useRouter } from 'next/navigation'
 
 export default function RegisterFormProfile() {
     const signUpState = useAppSelector((state)=>{return state.signupSlice.value})
@@ -14,6 +14,8 @@ export default function RegisterFormProfile() {
     const [biography, setBioography] = useState<string>("")
     const [image, setImage] = useState<any>()
     const [createObjectURL, setCreateObjectURL] = useState<string>()
+
+    const router = useRouter()
 
     useEffect(()=>{
       setImage(session.data?.user?.image)
@@ -80,7 +82,7 @@ export default function RegisterFormProfile() {
       console.log(user)
       await createUser(user as any)
 
-      navigate("/")
+      router.push("/")
     }
 
   return (
