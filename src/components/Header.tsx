@@ -95,7 +95,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
         <section className="flex mx-auto">
           
         </section>
-        <div className="mt-5 flex-col lg:ml-4">
+        <div className="flex-col lg:ml-4">
         {
           !props.session ? (
             <div className='inline-flex flex-col items-center justify-center sm:flex-row'>
