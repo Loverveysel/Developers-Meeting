@@ -118,7 +118,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
             </div>
             </div>
           ) : (
-          <div className="sm:ml-3 flex p-4">
+          <div className="sm:ml-3 flex p-4 items-center justify-center">
             <div className='mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6 mr-5'>
               <ul className="menu bg-base-200 w-full rounded-box container shadow-xl">
                 <li>
