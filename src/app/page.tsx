@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect, useState, useRef, MutableRefObject }  from 'react'
 import { useAppSelector, useAppDispatch } from '../store/store'
 import { loginClick, signupClick } from '@/store/features/login-slice'
 import { signOut, useSession } from 'next-auth/react'
@@ -13,9 +13,10 @@ import Footer from '@/components/Footer'
 import softwareDevelopmentCategories from '@/lib/software-development-categories'
 import Alert from '@/components/Alert'
 import { useRouter } from 'next/navigation'
+import useIsVisible from '@/hooks/useIsVisible'
 
 export default function HomePage() {
-  const router = useRouter()
+    const router = useRouter()
     const {status, data: session} =  useSession() 
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -32,29 +33,14 @@ export default function HomePage() {
     
 
     const [getStartedClicked, setGetStartedClicked] = useState<boolean>(false)
+    const ref1 = useRef<HTMLDivElement>(null)
+    const isVisible1 = useIsVisible(ref1)
 
-    const handleButton = async()=>{
+    const ref2 = useRef<HTMLDivElement>(null)
+    const isVisible2 = useIsVisible(ref2)
 
-      const body = {
-        content: "Hi it is my first messages",
-        name: "MygROUP"
-      }
-      const res = await fetch('/api/messages', {
-        method: "post",
-        headers:{
-          "Content-Type" : "application/json"
-        },
-        body : JSON.stringify(body)
-      })
-
-      if (res.ok) {
-        const parsedRes = await res.json()
-        console.log(parsedRes)
-      }else{
-        const text = await res.text()
-        console.log(text)
-      }
-    }
+    const ref3 = useRef<HTMLDivElement>(null)
+    const isVisible3 = useIsVisible(ref3)
 
     const handleOpenLoginandSignupOutsideClick = ()=>{
       loginButtonClicked ? dispatch(loginClick()) : 1
@@ -127,21 +113,44 @@ export default function HomePage() {
           <SignupForm show={signupButtonClicked}/>
           </section>
 
-          <div className="hero min-h-screen" style={{backgroundImage: 'url(https://images.pexels.com/photos/1181472/pexels-photo-1181472.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)'}}>
-            <div className="hero-overlay bg-opacity-60"></div>
-            <div className="hero-content text-center text-neutral-content">
-
-              <div className="max-w-2xl">
-                <h1 className="mb-5 text-5xl font-bold">Connect. Collaborate. Code Together. MeetDeveloper - Where Passionate Coders Unite</h1>
-                <p className="mb-5">Become a part of the MeetDeveloper movement. Connect with passionate developers, share your expertise, and contribute to innovative projects that shape the future of coding..</p>
-                <button type='button' onClick={handleGetStartedButton} className="btn btn-primary">Get Started</button>
-                <div className=''>
-                  <img className={"absolute z-50 animate-pulse bottom-1/2 left-1/2 rotate-180 h-2/3 w-1/3 "} style={!getStartedClicked ? {display: "none"} : {opacity: 1}} src="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/twisted-arrow-back-red-icon.png" alt="" />
+          <div className="flex flex-col min-h-screen p-16 bg-base-100">
+            <div ref={ref1} className={"hero w-full sm:w-3/4 p-4 shadow-2xl rounded-2xl bg-primary justify-self-start mb-16 duration-300 hover:scale-105 " + (isVisible1 ? "opacity-100" : "opacity-10")}>
+              <div className="hero-content flex-col lg:flex-row-reverse p-16">
+                <img src="/1.png" className="lg:max-w-sm rounded-lg shadow-2xl mr-16 max-w-48" alt='Home Page' />
+                <div className='ml-16'>
+                  <h1 className="sm:text-5xl font-bold text-accent text-2xl">Welcome to Developers Meeting</h1>
+                  <p className="py-6 text-left">Developers Meeting is the nexus where passionate coders converge to innovate, share, and build the software of tomorrow. Dive into a community that values collaboration, learning, and the power of code to change the world.</p>
+                  <button className="btn btn-primary" onClick={handleGetStartedButton}>Get Started</button>
                 </div>
-              
               </div>
             </div>
+
+            <div className='divider w-full'></div>
+
+            <div ref={ref2} className={"hero bg-primary shadow-2xl w-full sm:w-3/4 p-4 rounded-2xl justify-end mt-16 self-end duration-300 hover:scale-105 " + (isVisible2 ? "opacity-100" : "opacity-10")}>
+              <div className="hero-content flex-col lg:flex-row">
+                <img src="/3.png" className="lg:max-w-sm rounded-lg shadow-2xl mr-16 max-w-48" alt='Developer Profile'/>
+                <div>
+                  <h1 className="sm:text-5xl font-bold text-pink-400 text-2xl">Connect. Collaborate. Code Together. Developers Meeting - Where Passionate Coders Unite</h1>
+                  <p className="py-6">Become a part of the Developers Meeting movement. Connect with passionate developers, share your expertise, and contribute to innovative projects that shape the future of coding...</p>
+                </div>
+              </div>
+            </div>
+
+            <div className='divider w-full mt-16'></div>
+              
+            <div ref={ref3} className={"hero bg-primary shadow-2xl w-full sm:w-3/4 p-4 rounded-2xl justify-end mt-16 self-start duration-300 hover:scale-105 " + (isVisible3 ? "opacity-100" : "opacity-10")}>
+              <div className="hero-content flex-col lg:flex-row">
+                <img src="/2.png" className="lg:max-w-sm rounded-lg shadow-2xl mr-16 max-w-48" alt='Chat in Application' />
+                <div className='ml-16'>
+                  <h1 className="sm:text-5xl font-bold text-blue-400 text-2xl">Explore Seamless Collaboration with Chat</h1>
+                  <p className="py-6">Connect with like-minded developers by joining or creating chat groups centered around specific projects, programming languages, or technology domains. These interactive chat spaces provide a platform for exchanging ideas, discussing coding challenges, and fostering collaborative coding efforts.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
+
      </div>
      {/* Body */}
 

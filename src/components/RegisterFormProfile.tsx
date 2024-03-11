@@ -90,7 +90,7 @@ export default function RegisterFormProfile() {
       <form action="" >
       <span>Profile Photo : </span>
         <input type="file"  accept="image/*" multiple={false} className="file-input w-full max-w-xs" onChange={uploadToClient}/>
-        <Image src={createObjectURL == null ? session?.data?.user?.image as string : createObjectURL} className='rounded-full' width={50} height={50} alt=''></Image>
+        <Image src={createObjectURL == null ? session?.data?.user?.image as string : createObjectURL} className='rounded-full' width={50} height={50} alt='Profile Photo'></Image>
         <span className='text'>About you : </span>
         <input type="text" onChange={handleBiography}  className='textarea' placeholder='Type here'/>
         <button type="button" className='btn m-auto mt-5 border text-center text-lg' onClick={handleSubmitButton}>Submit</button>

@@ -25,7 +25,7 @@ const Navbar = (props: {user: any}) => {
                 className='p-5 '
               >
                 <button type="button" className='btn bg-transparent border-none hover:bg-accent' onClick={()=>{router.push(item.href)}}>
-                    <img  src={item.icon} alt="" width={item.width} height={item.heigth} />
+                    <img  src={item.icon} alt="icon" width={item.width} height={item.heigth} />
                 </button>
               </li>
             ))}

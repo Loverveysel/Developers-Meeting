@@ -70,6 +70,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return NextResponse.json(updatedUser, {status: 201}) 
     }
   } catch (error) {
+    console.log(error)
+    
     return NextResponse.json({error}, {status: 404}) 
   }
 }

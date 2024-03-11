@@ -38,7 +38,7 @@ export default function ProfilePicture({ session }: { session: Session | null })
       <a href={"/profile/" + user.id}>
         <div className="avatar cursor-pointer" onClick={()=>{router.push("/profile/" + user.id)}}>
           <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src={user.profilePicture} />
+            <img src={user.profilePicture} alt="Profile Photo"/>
           </div>
         </div>
       </a>
@@ -46,7 +46,7 @@ export default function ProfilePicture({ session }: { session: Session | null })
     )
   } else {
     return (
-      <Image src={session?.user?.image as string} width={50} height={50} alt="" className="rounded-full"/>
+      <Image src={session?.user?.image as string} width={50} height={50} alt="Profile Photo" className="rounded-full"/>
     )
   }
 }

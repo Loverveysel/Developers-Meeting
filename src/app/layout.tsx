@@ -86,7 +86,7 @@ export const metadata: Metadata = {
   bookmarks: "https://developers-meeting.com",
   abstract: 'Explore a collaborative platform for developers to connect, showcase projects, and engage in meaningful collaborations. Join Meet Developers to become part of a global coding community.',
   appLinks: {web: [{url: 'https://developers-meeting.com'}]},
-  verification : {google: 'google-site-verification=6wuQVIDUHixxxED3vmeocyNBfvMYgdEZbQ3QdJ31w80'},
+  verification : {google: "google-site-verification=sv75xpk4obenyFxnC1WXYB3wvn5RBeF5jaPayg6avsM"},
   classification: 'Technology/Developer Community',
   creator: 'Jessitoi',
   robots: 'index, follow',
@@ -105,6 +105,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"></link>
+        <link rel="icon" href="/icon.ico" />
       </head>
       <body className={inter.className}>
         <ReduxProvider>

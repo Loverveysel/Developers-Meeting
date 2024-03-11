@@ -14,17 +14,17 @@ export default function SignUpPage() {
 
     const startInterval = () => {
       const intervalId = setInterval(() => {
-        setStep((prevStep) => prevStep + 0.02);
+        setStep((prevStep) => prevStep + 0.02)
       }, 10)
   
-      return intervalId;
-    };
+      return intervalId
+    }
   
     const stopInterval = (intervalId: NodeJS.Timeout | null) => {
       if (intervalId !== null) {
-        clearInterval(intervalId);
+        clearInterval(intervalId)
       }
-    };
+    }
 
     const incrementStep = ()=>{
 
@@ -52,11 +52,11 @@ export default function SignUpPage() {
           stopInterval(intervalId)
           setStep(targetVal)
           setTargetVal(step + 1)
-          console.log(step);
+          console.log(step)
           
         }
-      };
-    }, [step]); 
+      }
+    }, [step]) 
 
 
   return (
