@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ReduxProvider } from '@/store/features/provider'
 import Providers from './Providers'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -107,6 +108,16 @@ export default function RootLayout({
         rel="stylesheet"></link>
         <link rel="icon" href="/icon.ico" />
       </head>
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-EK3E79D26K"></Script>
+      <Script>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+  
+          gtag('config', 'G-EK3E79D26K');`
+        }
+      </Script>
       <body className={inter.className}>
         <ReduxProvider>
           <Providers>{children}</Providers>
