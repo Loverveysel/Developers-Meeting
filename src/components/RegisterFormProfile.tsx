@@ -23,6 +23,7 @@ export default function RegisterFormProfile() {
 
     const handleBiography = (e:any)=>{
       setBioography(e.target.value)
+      dispatch(FinalStep({ biography: e.target.value }))
     } 
 
     const uploadToClient = (event:any) => {
