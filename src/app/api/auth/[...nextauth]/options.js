@@ -9,11 +9,10 @@ const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      
     }),
   ],
   callbacks: {
-    async signIn({ user, account, target }) {
+    async signIn({ user, account }) {
       if (account.provider === "google") {
         const { name, email } = user;
         try {

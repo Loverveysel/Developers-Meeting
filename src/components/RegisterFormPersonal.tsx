@@ -3,11 +3,9 @@ import React, {useState} from 'react'
 import { CountryDropdown } from 'react-country-region-selector'
 import { useAppDispatch } from '@/store/store'
 import { FirstName, SecondName, Country } from '@/store/features/signup-slice'
-import { useSession } from 'next-auth/react'
 
 export default function RegisterFormPersonal() {
     const dispatch = useAppDispatch()
-    const session = useSession()
 
     const [firstName, setFirstName] = useState("")
     const [secondName, setSecondName] = useState("")
@@ -26,8 +24,6 @@ export default function RegisterFormPersonal() {
     const handleCountryInput =  (cntry: string) =>{
         setCountry(cntry)
         dispatch(Country(cntry))
-        console.log(session.data?.user?.email);
-        
     }
     
     return (

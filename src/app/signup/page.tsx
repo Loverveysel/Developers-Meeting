@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import RegisterFormPersonal from '@/components/RegisterFormPersonal'
 import RegisterFormInterests from '@/components/RegisterFormInterests'
 import RegisterFormProfile from '@/components/RegisterFormProfile'
+import { useSession } from 'next-auth/react'
 
 export default function SignUpPage() {
 
@@ -10,6 +11,7 @@ export default function SignUpPage() {
     const [targetVal, setTargetVal] = useState(step + 1)
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
 
+    const {status, data: session} =  useSession() 
     let buttonDisable = false
 
     const startInterval = () => {
@@ -51,14 +53,11 @@ export default function SignUpPage() {
         if (step >= targetVal) {
           stopInterval(intervalId)
           setStep(targetVal)
-          setTargetVal(step + 1)
-          console.log(step)
-          
+          setTargetVal(step + 1)          
         }
       }
     }, [step]) 
-
-
+    
   return (
     <main className='relative flex-col grid bg-gray-100 min-h-screen w-screen'>
       <div className='mx-auto'>
@@ -92,7 +91,7 @@ export default function SignUpPage() {
         </div>
 
         <div className={`m-auto transition-transform transition-opacity duration-500 ease-in-out${step > 3 ?  'translate-x-0 opacity-100' : step > 2 && step < 3  ? '-translate-x-0 opacity-50' : '-translate-x-full opacity-0 hidden'}`}>
-          <RegisterFormProfile/>
+          <RegisterFormProfile session={session}/>
         </div>
 
 

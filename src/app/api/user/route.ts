@@ -42,33 +42,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
         id: newUser.id
       },
       data: {
-        profilePicture: "https://developersmeeting.com/api/pp/" + newUser.id as string
+        profilePicture: "/api/pp/" + newUser.id as string
       }
     })
-  
-    if (typeof user.profilePicture == "string") {
-
-        const uploadToServer = async (id: string) => {
-          const res = await fetch(user.profilePicture)
-          const blob = await res.blob()
-          const image = new File([blob],"profilePicture.png") 
-          const body = new FormData()
-          body.append('fileType', "pp")
-          body.append("id", id)
-          body.append("profilePicture", image)
-          await fetch("/api/pp", {
-            method: "POST",
-            body
-            })
-        }
-
-        await uploadToServer(newUser.id)
-
-        return NextResponse.json(updatedUser, {status: 201}) 
-    }
-    else{
-        return NextResponse.json(updatedUser, {status: 201}) 
-    }
+    
+    return NextResponse.json(updatedUser, {status: 201}) 
+    
   } catch (error) {
     console.log(error)
     

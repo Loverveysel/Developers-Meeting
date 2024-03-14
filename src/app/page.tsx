@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState, useRef, MutableRefObject }  from 'react'
+import React, { useEffect, useState, useRef }  from 'react'
 import { useAppSelector, useAppDispatch } from '../store/store'
 import { loginClick, signupClick } from '@/store/features/login-slice'
 import { signOut, useSession } from 'next-auth/react'
