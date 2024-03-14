@@ -13,36 +13,41 @@ export async function GET(req: NextRequest, res: NextResponse){
         const userProgrammingLanguages = user?.programmingLanguages
         const userDomains = user?.domains
         const userCountry = user?.country
-    
+        
         const relevantPosts = await prisma.post.findMany({
-            where: {
-              user: {
-                country: userCountry
+          where: {
+            OR: [
+              {
+                programmingLanguages: {
+                  hasSome: userProgrammingLanguages
+                }
               },
-              OR: [
-                {
-                  programmingLanguages: {
-                    hasSome: userProgrammingLanguages,
-                  },
-                },
-                {
-                  domains: {
-                    hasSome: userDomains,
-                  },
-                },
-              ],
+              {
+                domains: {
+                  hasSome: userDomains
+                }
+              },
+            ]
+          },
+          orderBy: [
+            {
+              createdAt: "desc"
             },
-            include: {
-                goodIdeas: true,    
-                badIdeas: true,
-                interests: true,
-                user: true
+            {
+              user: {
+                country: "desc"
               },
-              orderBy:{
-                createdAt: "desc"
-              }
-          })
-          return NextResponse.json(relevantPosts, {status: 200})  
+            },
+            {
+              domains: "desc"
+            },
+            {
+              programmingLanguages: "desc"
+            },
+          ],
+        })
+
+        return NextResponse.json(relevantPosts, {status: 200})  
       }else{
         const allPosts = await prisma.post.findMany({
           where:{
