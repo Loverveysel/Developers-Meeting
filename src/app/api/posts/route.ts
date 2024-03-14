@@ -29,7 +29,9 @@ export async function GET(req: NextRequest, res: NextResponse){
                 },
                 {
                   user: {
-                    country: userCountry,
+                    country: {
+                      contains: userCountry,
+                    },
                   },
                 },
               ],
