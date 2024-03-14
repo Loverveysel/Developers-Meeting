@@ -28,23 +28,7 @@ export async function GET(req: NextRequest, res: NextResponse){
                 }
               },
             ]
-          },
-          orderBy: [
-            {
-              createdAt: "desc"
-            },
-            {
-              user: {
-                country: "desc"
-              },
-            },
-            {
-              domains: "desc"
-            },
-            {
-              programmingLanguages: "desc"
-            },
-          ],
+          }
         })
 
         return NextResponse.json(relevantPosts, {status: 200})  
