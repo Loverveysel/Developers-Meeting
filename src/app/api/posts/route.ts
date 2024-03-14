@@ -16,6 +16,9 @@ export async function GET(req: NextRequest, res: NextResponse){
     
         const relevantPosts = await prisma.post.findMany({
             where: {
+              user: {
+                country: userCountry
+              },
               OR: [
                 {
                   programmingLanguages: {
@@ -25,13 +28,6 @@ export async function GET(req: NextRequest, res: NextResponse){
                 {
                   domains: {
                     hasSome: userDomains,
-                  },
-                },
-                {
-                  user: {
-                    country: {
-                      contains: userCountry,
-                    },
                   },
                 },
               ],
