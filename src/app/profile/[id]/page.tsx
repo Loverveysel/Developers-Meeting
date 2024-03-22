@@ -7,7 +7,7 @@ import Post from '@/components/Post'
 import Footer from '@/components/Footer'
 
 export default function Page({ params }: { params: { id: string } }){
-    const {data: session} = useSession()    
+    const {status, data: session} = useSession()    
     const { id } = params
 
     const [user, setUser] = useState<any>()
@@ -41,7 +41,7 @@ export default function Page({ params }: { params: { id: string } }){
                 <div className='left-0 w-60'>
                     <Navbar user={sessionUser}/>
                 </div>
-                <div className='bg-base-100 mx-auto h-screen'>
+                <div className='bg-base-100 mx-auto w-full h-screen'>
                 <section className="mt-48">
                     <div className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style={{transform: "translateZ(0px)"}}>
                     <svg className="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
@@ -50,7 +50,7 @@ export default function Page({ params }: { params: { id: string } }){
                 </section>
                 <section className="relative w-5/6 mx-auto py-16 bg-base-100">
                     <div className="mx-auto px-4">
-                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+                    <div className="relative flex flex-col max-w-7xl min-w-96 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
                         <div className="px-6">
                         <div className="flex flex-wrap justify-center">
                             <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -92,17 +92,17 @@ export default function Page({ params }: { params: { id: string } }){
                             <div className='flex flex-row '>
                                 {
                                 user.domains.map((domain: string)=>(
-                                    <span className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 ">{domain}</span>
+                                    <span className="text-white text-xs font-bold rounded-lg items-center bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 ">{domain}</span>
                                 ))
                                 }
                             </div>
                             </div>
                             <div className="mb-2 text-blueGray-600  flex justify-start items-center">
                             <i className="fas fa-briefcase mr-2 my-auto text-lg text-blueGray-400"></i>
-                            <div className='flex flex-row '>
+                            <div className='flex flex-row flex-wrap'>
                                 {
                                 user.programmingLanguages.map((domain: string)=>(
-                                    <span className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 ">{domain}</span>
+                                    <span className="text-white text-xs font-bold rounded-lg items-center text-center justify-items-center bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 ">{domain}</span>
                                 ))
                                 }
                             </div>
@@ -125,11 +125,11 @@ export default function Page({ params }: { params: { id: string } }){
                     </div>
                 </section>
                 <div className='divider w-full bg-base-100'></div>
-                <div className='left-1/4 w-3/4 flex mb-16 flex-wrap mx-auto '>
+                <div className='left-1/4 w-full flex mb-16 flex-wrap mx-auto '>
                     {user ?
                         user.posts.map((post:any)=>(
                             <div className='mt-5  ml-5 w-96'>
-                                <Post post={post} user={user}/>
+                                <Post post={post} user={sessionUser}/>
                             </div>
                         )) : <></>           
                     }
@@ -148,7 +148,7 @@ export default function Page({ params }: { params: { id: string } }){
         return (
             <div className='bg-base-100 w-screen h-screen'>
                 <div className='absolute flex top-1/2 right-1/2 translate-x-1/2 translate-y-1/2'>
-                    <img className='rounded-full animate-ping m-auto border-4 border-white' src="/icon.ico" alt="" height={150} width={150} />
+                    <img className='rounded-full animate-ping duration-1000 m-auto border-4 border-white' src="/icon.ico" alt="" height={150} width={150} />
                 </div>
             </div>
         )

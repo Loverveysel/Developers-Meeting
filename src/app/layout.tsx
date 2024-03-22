@@ -106,7 +106,6 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"></link>
-        <link rel="icon" href="/icon.ico" />
       </head>
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-EK3E79D26K"></Script>
       <Script>

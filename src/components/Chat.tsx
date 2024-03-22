@@ -59,30 +59,47 @@ export default function Chat(props: { group: any, user: any }) {
     }
 
     useEffect(() => {
+        //How to align scroll bar to right ? 
         if (messageContainerRef.current) {
-        messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight
+            messageContainerRef.current.scroll({
+                left: 100,
+                behavior: 'smooth',
+                top: 0,
+            })    
+        }
+        
+
+        if (messageContainerRef.current) {
+            messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight
         }
     }, [group.messages])
 
     return (
-    <div className='flex flex-col border-solid items-center justify-end border-success border-2 rounded-2xl bg-chat w-full'>
-        <div className='rounded-3xl p-5 max-h-72 overflow-y-auto ' ref={messageContainerRef}>
+    <div className='flex flex-col border-solid items-center justify-end self-end justify-self-end  border-success border-2 rounded-2xl bg-chat h-full w-full'>
+        <div className='rounded-3xl p-5 min-h-72 max-h-72 h-72 overflow-y-auto w-full' ref={messageContainerRef} style={{WebkitAlignItems: 'end', WebkitAlignSelf: 'end', WebkitBorderRadius: 25, WebkitBorderBeforeColor: "blue"}}>
             {group.messages.map((message: any) => (
-                <div
-                key={message.id}
-                className={`chat ${message.senderId !== props.user.id ? 'chat-start' : 'chat-end'} p-5`}
-                >
-                <div className='chat-image avatar'>
-                    <div className='w-10 rounded-full'>
-                    <img alt='Profile' src={message.sender.profilePicture} />
+                <div className={'flex ' + (message.senderId !== props.user.id ? 'flex-row' : 'flex-row-reverse')}>
+                    <div className='chat-image avatar'>
+                        <div className='w-10 rounded-full'>
+                        <img alt='Profile' src={message.sender.profilePicture} />
+                        </div>
                     </div>
-                </div>
-                <div className='chat-header font-medium'>
-                    {message.sender.firstName}
-                    <time className='text-xs font-bold opacity-70'>{messageTime(message.createdAt)}</time>
-                </div>
-                <div className='chat-bubble bg-neutral '>{message.content}</div>
-                <div className='chat-footer opacity-50'>{message.senderId !== props.user.id ? 'Delivered' : 'Seen at 12:46'}</div>
+                    <div
+                    key={message.id}
+                    className={`chat w-full ${message.senderId !== props.user.id ? 'chat-start' : 'chat-end'} p-2`}
+                    >
+
+                        <div className={'chat-bubble bg-warning p-5 max-w-60 flex'}>
+                            <div className='flex flex-col'>
+                                <div className={'chat-header text-base-300 font-bold  text-start ' + (message.senderId !== props.user.id ? '' : 'hidden')}>
+                                    {message.sender.firstName}
+                                </div>
+                                <article className={'text-white max-w-48 text-wrap break-words ' + (message.senderId !== props.user.id ? 'left' : 'right')}>{message.content}</article>
+                            </div>
+                            
+                        <time className='absolute text-xs bottom-1 right-1 font-bold opacity-70 self-end'>{messageTime(message.createdAt)}</time>
+                        </div>
+                    </div>
                 </div>
             ))}
     </div>
@@ -96,7 +113,7 @@ export default function Chat(props: { group: any, user: any }) {
                     className='input w-full max-w-xs border-none rounded-3xl bg-slate-300'
                 />
                 <button type="submit" className='bg-white border-solid border-2 border-warning m-auto rounded-btn justify-center items-center -bottom-20'>
-                <img width="48" height="48" src="https://img.icons8.com/hatch/64/sent.png" alt="sent"/>
+                    <img width="48" height="48" src="https://img.icons8.com/hatch/64/sent.png" alt="sent"/>
                 </button>
             </form>
         </div>

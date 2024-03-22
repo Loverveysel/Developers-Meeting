@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef }  from 'react'
 import { useAppSelector, useAppDispatch } from '../store/store'
 import { loginClick, signupClick } from '@/store/features/login-slice'
 import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 import LoginForm from '@/components/LoginForm'
 import SignupForm from '@/components/SignupForm'
@@ -12,8 +13,21 @@ import ChatGroups from '@/components/ChatGroups'
 import Footer from '@/components/Footer'
 import softwareDevelopmentCategories from '@/lib/software-development-categories'
 import Alert from '@/components/Alert'
-import { useRouter } from 'next/navigation'
 import useIsVisible from '@/hooks/useIsVisible'
+import Select, {ActionMeta, MultiValue} from 'react-select'
+import makeAnimated from 'react-select/animated'
+
+const animatedComponent = makeAnimated()
+
+interface Option {
+  value: string
+  label: string
+}
+  
+const domainList = Object.keys(softwareDevelopmentCategories).map(key => ({
+  value: key,
+  label: key
+}))
 
 export default function HomePage() {
     const router = useRouter()
@@ -92,6 +106,19 @@ export default function HomePage() {
         getUser()        
       }
     }, [session])
+
+    const handelDomainInput = (
+      selectedOptions: MultiValue<Option>,
+      actionMeta: ActionMeta<Option>
+    ) => {
+      // Seçilen değerleri domains dizisine atar
+      if (selectedOptions) {
+          const newDomains = selectedOptions.map(element => element.value)
+          setSelectedCategories(newDomains)
+      } else {
+        setSelectedCategories([])
+      }
+    }
     
   return (
     <>
@@ -120,7 +147,7 @@ export default function HomePage() {
                 <div className='ml-16'>
                   <h1 className="sm:text-5xl font-bold text-accent text-2xl">Welcome to Developers Meeting</h1>
                   <p className="py-6 text-left">Developers Meeting is the nexus where passionate coders converge to innovate, share, and build the software of tomorrow. Dive into a community that values collaboration, learning, and the power of code to change the world.</p>
-                  <button className="btn btn-primary" onClick={handleGetStartedButton}>Get Started</button>
+                  <button className="btn btn-secondary" onClick={handleGetStartedButton}>Get Started</button>
                 </div>
               </div>
             </div>
@@ -168,29 +195,9 @@ export default function HomePage() {
     {/* Body */}
     <div className="flex flex-row flex-grow lg:px-8 bg-primary">
       {/* Sol Bölüm */}
-      <div className="fixed flex-col items-center p-4 bg-base-100 w-60 border-info border-2 rounded-xl">
-        <span className='text-xl text-blueGray-700 '> Selected : </span>
-        <ul>
-          {
-            selectedCategories.map((category: string, index: number)=>(
-              <li className='w-full h-12 flex-row justify-between rounded-lg items-center bg-pink-500 inline-block cursor-pointer mt-4 ml-4 py-1.5 px-4'>
-                <span className="text-white text-xs font-bold my-auto ">{category}</span>
-                <button type="button" className='absolute right-2 transform translate-y-1/2 bg-white border-none duration-300 rounded-lg hover:bg-red-500 p-1 ' onClick={()=>[handleUnSelectedCategories(category)]}>
-                  <img width="12" height="12" src="https://img.icons8.com/sf-regular/48/delete-sign.png" alt="delete-sign"/>
-                </button>
-              </li>
-            ))
-          }
-        </ul>
-        <ul className='flex flex-col p-4 justify-center items-center '>
-        {
-         Object.keys(softwareDevelopmentCategories).map((category: string, index: number)=>(
-            <li className='w-full h-12' onClick={handleSelectedCategories}>
-            <span className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 cursor-pointer">{category}</span>
-          </li>
-          ))
-        }
-        </ul>
+      <div className="absolute flex-col items-center p-4 bg-base-100 w-1/5 border-info border-2 rounded-xl mt-5">
+        <span className='text-xl'>Select Categories</span>
+        <Select components={animatedComponent} isMulti name='domainCategories' onChange={handelDomainInput} options={domainList} className='rounded-lg mt-5 my-auto border-none w-full'/>
       </div>
   
       <div className={"w-screen fixed z-50 "} style={{display: !createPostButtonClicked ? "none" : "inline-block"}}>
@@ -207,13 +214,13 @@ export default function HomePage() {
         <div className={'fixed z-50 top-0 right-0 duration-300' + (isAlert ? ' opacity-100' : ' opacity-0 hidden')}>
           <Alert/>
         </div>
-        <div className='fixed bottom-0 right-0'>
+        <div className='fixed z-50 bottom-0 right-0'>
           <ChatGroups session={session}/>
         </div>
       </div>
     </div>
 
-    <div className='mt-5'>
+    <div className='mt-5 z-0'>
       <Footer/>
     </div>
   </main>

@@ -14,11 +14,21 @@ export default function Header(props:{session:Session | null, getStarted: boolea
     const [signupClicked, setSignupClicked] = useState(false)
     const [createPostClicked, setCreatePostClicked] = useState(false)
     const [invitations, setInvitations] = useState<any[]>([])
+    const [createPostHover, setCreatePostHover] = useState(false)
+    const [user, setUser] = useState<any>()
     let ignoerUseEffect: boolean = false
 
     const router = useRouter()
     const dispatch = useAppDispatch()
     
+    const handleCreatePostHover = ()=>{
+      setCreatePostHover(true)
+    }
+
+    const handleCreatePostDisHover = ()=>{
+      setCreatePostHover(false)
+    }
+
     const handleLoginButton = ()=>{
       setLoginClicked(!loginClicked)
       dispatch(loginClick())
@@ -34,11 +44,11 @@ export default function Header(props:{session:Session | null, getStarted: boolea
       dispatch(createPostClick())
     }
 
-    useEffect(()=>{
+    useEffect(()=>{      
       if (props.session) {
         if (!ignoerUseEffect) {
+          setInvitations([])
           ignoerUseEffect = true
-          let user: any
           const getUser = async()=>{
           const res = await fetch('/api/user', {
             method: 'GET',
@@ -46,7 +56,8 @@ export default function Header(props:{session:Session | null, getStarted: boolea
               'Content-Type': 'application/json'
             }
           })
-          user = await res.json()
+          const data = await res.json()
+          setUser(data)
   
           for (let i = 0; i < user.posts.length; i++) {
             const post = user.posts[i]
@@ -61,7 +72,7 @@ export default function Header(props:{session:Session | null, getStarted: boolea
         }    
       }
       
-    }, [])
+    }, [props.session])
 
     const handleAcceptInvitation = async (invitation: any)=>{
       const res = await fetch('/api/invitation/accept', {
@@ -95,10 +106,10 @@ export default function Header(props:{session:Session | null, getStarted: boolea
         <section className="flex mx-auto">
           
         </section>
-        <div className="flex-col lg:ml-4">
+        <div className="flex-col self-center lg:ml-4">
         {
           !props.session ? (
-            <div className='inline-flex flex-col items-center justify-center sm:flex-row'>
+            <div className='inline-flex flex-col sm:flex-row'>
             <div className="ml-3">
               <button type="button" onClick={handleSignupButton} className={"btn inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 " + (props.getStarted ? "animate-bounce" : "")}>
                 <svg className="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -118,51 +129,55 @@ export default function Header(props:{session:Session | null, getStarted: boolea
             </div>
             </div>
           ) : (
-          <div className="sm:ml-3 flex p-4 items-center justify-center">
+          <div className="sm:ml-3 flex items-center justify-center">
             <div className='mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6 mr-5'>
-              <ul className="menu bg-base-200 w-full rounded-box container shadow-xl">
-                <li>
-                  <details open>
-                    <summary>Invitations</summary>
-                    <ul className='flex-row items-center'>
-                      {invitations &&
-                        invitations.map((invitation: any)=>(
-                          <li className='flex flex-row items-center justify-center'>
-                            <div className="avatar" onClick={()=>{router.push("/profile/" + invitation.senderId)}}>
-                              <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer" >
-                                <img src={invitation.sender.profilePicture} />
+              <div className="dropdown dropdown-bottom dropdown-end">
+                <div tabIndex={0} role="button" className="btn m-1">Invitations
+                  <img width="12" height="12" src="https://img.icons8.com/ios/50/expand-arrow--v2.png" alt="expand-arrow--v2"/>
+                </div>
+                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96">
+                  {invitations &&
+                          invitations.map((invitation: any)=>(
+                            <li>
+                              <div>
+                                <div className="avatar" onClick={()=>{router.push("/profile/" + invitation.senderId)}}>
+                                  <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 cursor-pointer" >
+                                    <img src={invitation.sender.profilePicture} />
+                                  </div>
+                                </div>
+                                <div className='grid p-2'>
+                                  <span className='text-sm text-blueGray-600  truncate'>{"Sender : " + invitation.sender.firstName}</span>
+                                  <span className='text-sm text-blueGray-600  truncate'>{"To : " + invitation.chatGroup.name}</span>
+                                </div>
+                                <button type="button" className='btn-circle border-none hover:bg-accent items-center justify-center ' onClick={()=>{handleAcceptInvitation(invitation)}}>
+                                  <img className='m-auto' width="24" height="24" src="https://img.icons8.com/material-outlined/24/checked--v1.png" alt="checked--v1"/>
+                                </button>
+                                <button type="button" className='btn-circle border-none hover:bg-red-500 items-center justify-center flex' onClick={()=>{handleDeclineInvitation(invitation)}}>
+                                  <img width="24" height="24" src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/external-deny-ui-essentials-flatart-icons-outline-flatarticons.png" alt="external-deny-ui-essentials-flatart-icons-outline-flatarticons"/>
+                                </button>
                               </div>
-                            </div>
-                            <span className='text-sm text-blueGray-600  truncate'>{"Sender : " + invitation.sender.firstName}</span>
-                            <button type="button" className='btn-box h-12 w-12 border-none hover:bg-accent items-center justify-center flex' onClick={()=>{handleAcceptInvitation(invitation)}}>
-                              <img className='m-auto' width="48" height="48" src="https://img.icons8.com/material-outlined/24/checked--v1.png" alt="checked--v1"/>
-                            </button>
-                            <button type="button" className='btn-box h-12 w-12 border-none hover:bg-red-500 items-center justify-center flex' onClick={()=>{handleDeclineInvitation(invitation)}}>
-                              <img width="64" height="64" src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/external-deny-ui-essentials-flatart-icons-outline-flatarticons.png" alt="external-deny-ui-essentials-flatart-icons-outline-flatarticons"/>
-                            </button>
-                            <button type="button"onClick={()=>{console.log(invitations)
-                            }}></button>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                </details>
-              </li>
-            </ul>
+                            </li>
+                          ))
+                        }
+                </ul>
+              </div>
             </div>
-            <div className='my-auto w-30 h-30'>
-              <button type="button" className='btn inline-flex bg-successs items-start justify-between rounded-badge' onClick={handleCreatePostButton}>
-              <span className="material-symbols-outlined  text-gray-500 w-30 h-30 rounded-full m-auto">add_circle</span>
+            <div className='flex flex-row my-auto'>
+              <div className='my-auto flex-col'>
+                <button type="button" className='btn btn-box scale-110 shadow-lg flex flex-col border-black bg-white items-start justify-between ' onClick={handleCreatePostButton} onMouseEnter={handleCreatePostHover} onMouseLeave={handleCreatePostDisHover}>
+                  <span className="material-symbols-outlined  text-neutral w-30 h-30 rounded-full m-auto">add_circle</span>
+                </button>
+              </div>
+                <div className={'p-4 mt-10 bottom-0 right-0 shadow-2xl bg-base-200 rounded-2xl opacity-0 duration-500' + (createPostHover ? ' opacity-100' : " ")}>Share Post</div>
+              
+              <div className='mr-5 my-auto'>
+                <ProfilePicture session={props.session}/>
+              </div>
+              <button type="button" onClick={()=>signOut()} className="btn my-auto inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              <span className="material-icons mr-1">&#xE87C;</span>
+                Log Out
               </button>
             </div>
-            
-            <div className='m-5 my-auto'>
-              <ProfilePicture session={props.session}/>
-            </div>
-            <button type="button" onClick={()=>signOut()} className="my-auto inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            <span className="material-icons mr-1">&#xE87C;</span>
-              Log Out
-            </button>
           </div>
           )
         }

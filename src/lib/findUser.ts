@@ -1,5 +1,6 @@
 import { Session } from "next-auth";
 import prisma from "@/lib/prisma";
+import { log } from "console";
 
 export async function findUser(session: Session |null) {
     const email = session?.user?.email as string
@@ -20,7 +21,8 @@ export async function findUser(session: Session |null) {
                                 members: true,
                                 invitations: {
                                     include: {
-                                        sender: true
+                                        sender: true,
+                                        chatGroup: true
                                     }
                                 },
                             },
@@ -43,7 +45,25 @@ export async function findUser(session: Session |null) {
                 },
                 badIdeas: true,
                 goodIdeas: true,
-                interests:true
+                interests:true,
+                savedPosts: {
+                    include: {
+                        post: {
+                            include: {
+                                goodIdeas: true,    
+                                badIdeas: true,
+                                interests: true,
+                                user: true
+                              },
+                        }
+                    }
+                },
+                Invitations:{
+                    include:{
+                        sender: true,
+                        chatGroup: true
+                    }
+                }
             }
         })
         return user        

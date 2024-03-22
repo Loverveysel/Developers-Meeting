@@ -19,6 +19,8 @@ export default function Posts(props: {session : Session, categories: string[]}) 
             const res2 = await fetch('/api/user')
             const parsedRes2 = await res2.json()
             setUser(parsedRes2)
+            console.log(parsedRes2);
+            
         }   
         get()
     }, [props.session])
@@ -48,7 +50,10 @@ export default function Posts(props: {session : Session, categories: string[]}) 
     <div>
         {posts ?
             posts.map((post)=>(
+              <div className='mt-5'>
                 <Post post={post} user={user}/>
+                <div className='divider max-w-xl mx-auto mt-10'></div>
+              </div>
             )) : <></>           
         }
     </div>

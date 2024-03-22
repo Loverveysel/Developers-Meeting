@@ -34,6 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         programmingLanguages: user.programmingLanguages,
         secondName: user.secondName,
         biography: user.biography,
+        
       }
     })
 
@@ -53,4 +54,26 @@ export async function POST(req: NextRequest, res: NextResponse) {
     
     return NextResponse.json({error}, {status: 404}) 
   }
+}
+
+export async function PUT(req: NextRequest, res: NextResponse) {
+    try {
+        const session = await checkAuthA(req, res)
+        const user = await findUser(session)
+        const body = await req.json()
+        const updatedUser = await prisma.user.update({
+            where: {
+                id: user ? user.id : ""
+            },
+            data: {
+                educationExperience: body.educationExperience,
+                domains: body.domains,
+                programmingLanguages: body.programmingLanguages,
+                biography: body.biography,
+            }
+        })
+        return NextResponse.json(updatedUser, {status: 200})
+    } catch (error) {
+        return NextResponse.json({error}, {status: 400})
+    }
 }

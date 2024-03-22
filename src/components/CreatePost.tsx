@@ -7,21 +7,17 @@ import softwareDevelopmentCategories from '@/lib/software-development-categories
 import Select, {ActionMeta, MultiValue} from 'react-select'
 import makeAnimated from 'react-select/animated'
 
-
 const animatedComponent = makeAnimated()
 
 interface Option {
-    value: string;
-    label: string;
-  }
+  value: string
+  label: string
+}
 
-  
 const domainList = Object.keys(softwareDevelopmentCategories).map(key => ({
-    value: key,
-    label: key
-  }));
-  
-
+  value: key,
+  label: key
+}))
 
 export default function CreatePost(props: {session: Session}) {
   const [title, setTitle] = useState<string>("")
@@ -43,7 +39,6 @@ export default function CreatePost(props: {session: Session}) {
     } else {
         setDomains([])
     }
-    
   }
 
   useEffect(()=>{
@@ -92,23 +87,23 @@ export default function CreatePost(props: {session: Session}) {
 
   return (
     <div className='mx-auto w-10/12 flex flex-col'>
-      <div className="heading text-center font-bold text-2xl m-5 text-gray-800">New Idea</div>
+      <div className="heading text-center font-bold text-2xl m-5 text-neutral">Share Project</div>
       
-      <div className="mx-auto w-10/12 flex flex-col bg-gray-400 text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
-        <input className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" placeholder="Title" type="text" onChange={(e)=>{handleInput(setTitle, e)}}/>
-        <textarea className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" placeholder="Describe everything about this post here" onChange={(e)=>{handleInput(setBody, e)}}></textarea>
+      <div className="mx-auto w-10/12 flex flex-col bg-info text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl rounded-2xl">
+        <input className="title bg-white border border-gray-300 p-2 mb-4 outline-none" placeholder="Title" type="text" onChange={(e)=>{handleInput(setTitle, e)}}/>
+        <textarea className="description bg-white sec p-3 h-60 border border-gray-300 outline-none" placeholder="Describe everything about this post here" onChange={(e)=>{handleInput(setBody, e)}}></textarea>
         
         <div className='mt-4 w-11/12 sec'>
           <Select components={animatedComponent} isMulti name='domainCategories' onChange={handelDomainInput} options={domainList} className='rounded-lg m-5 my-auto border-none w-full'/>
         </div>
 
-        <div className='flex '>
+        <div className='flex flex-row flex-wrap'>
           Programming languages : 
         {
         domains && domains.length > 0
           ? domains.map((domainElement) =>
               softwareDevelopmentCategories[domainElement].map((element) => (
-                <div key={element} className='m-2'>
+                <div key={element} className='m-2 '>
                   <span>{element}</span>
                   <input
                     className='checkbox mr-2 ml-1'

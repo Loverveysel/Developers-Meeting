@@ -88,7 +88,7 @@ export default function RegisterFormProfile(props: {session: Session | null}) {
       
   return (
     <div className='grid m-auto border-2 border-gray-500  max-w-xl bg-white rounded-xl p-5'>
-      <form action="" >
+      <form action=""  onSubmit={()=>{router.push('/')}}>
       <span>Profile Photo : </span>
         <input type="file"  accept="image/*" multiple={false} className="file-input w-full max-w-xs" onChange={uploadToClient}/>
         <Image src={createObjectURL == null ? props.session?.user?.image as string : createObjectURL} className='rounded-full' width={50} height={50} alt='Profile Photo'></Image>

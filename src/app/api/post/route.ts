@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
+import { title } from "process"
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -59,4 +60,28 @@ export async function POST(req: NextRequest, res: NextResponse) {
       
       return NextResponse.json({error}, {status: 404})
     }
+}
+
+export async function PUT(req: NextRequest, res: NextResponse) {
+    try {
+      const body = await req.json()
+      const updatedPost = await prisma.post.update({
+        where: {
+          id: body.postId
+        },
+        data: {
+          programmingLanguages: body.programmingLanguages,
+          domains: body.domains,
+          title: body.title,
+          body: body.body
+        }
+      })
+
+      return NextResponse.json(updatedPost, {status: 200})
+    } catch (error) {
+      console.log(error)
+      
+      return NextResponse.json({error}, {status: 404})
+    }
+  
 }

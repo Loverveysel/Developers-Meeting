@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Chat from './Chat'
 import { io, Socket } from 'socket.io-client'
 
-export default function ChatGroups(props: { session: Session }) {
+export default function ChatGroups(props: { session: Session | null}) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [groups, setGroups] = useState<any[]>([])
   const [selectedGroup, setSelectedGroup] = useState<any | null>(null)
@@ -106,41 +106,43 @@ export default function ChatGroups(props: { session: Session }) {
 }, [groups])
 
   if (groups) {
-    return (<>
-    
-        <div className='bg-success rounded-3xl p-2 shadow-lg z-50 max-w-xl min-w-xl min-h-58 max-h-58'>
-          <div className={`my-auto border-neutral border-2 border-solid w-8 h-8 rounded-full inline-flex items-center justify-between bg-base-100 ${!isOpen ? 'm-auto rotate-180 hover:cursor-pointer' : ' justify-start hover:cursor-pointer'}`} onClick={handleOpenCloseButton}>
+    return (
+        <div className='bg-success rounded-3xl p-2 shadow-lg z-50 max-w-10 min-w-max min-h-58 max-h-58'>
+          <div className={`my-auto border-neutral border p-2 border-solid rounded-full inline-flex items-center justify-between bg-base-100 ${!isOpen ? 'm-auto rotate-180 hover:cursor-pointer' : ' justify-start hover:cursor-pointer'}`} onClick={handleOpenCloseButton}>
             <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/48/expand-arrow--v1.png" alt=""/>
           </div>
           {isOpen && (
             <>
               <div className="divider lg:divider-vertical m-0"></div>
               <div className='flex flex-row min-h-48'>
-                <div className='flex flex-col rounded-2xl h-full '>
+                <div className='flex flex-col rounded-2xl w-60 h-full ' ref={groupsRef}>
                   {groups.map((group: any, index: number) => (
-                    <button key={group.id} className='btn rounded-none flex flex-col items-start justify-center h-16' onClick={() => { handleSelectGroupButton(index) }}>
+                    <button key={group.id} className='btn rounded-none border-b-2 border-b-gray-300 flex flex-col items-start justify-center h-24 w-full' onClick={() => { handleSelectGroupButton(index) }}>
                       <span className='justify-start'>{group.name}</span>
                         {
                           group.messages.length > 0 && (
                             <div className='flex flex-row'>
-                              <span className='opacity-80 '>{group.messages[group.messages.length - 1].sender.firstName + " : "}</span>
-                              <span className='opacity-50'>{group.messages[group.messages.length - 1].content}</span>
+                              <span className='opacity-70 flex flex-row '>{group.messages[group.messages.length - 1].sender.firstName}</span>
+                              <span> : </span>
+                              <span className='opacity-50 text-wrap break-words'>{group.messages[group.messages.length - 1].content.length > 15 ? group.messages[group.messages.length - 1].content.slice(0, 15) + "..." : group.messages[group.messages.length - 1].content}</span>
                             </div>
                           )
                         }
-
                     </button>
                   ))}
                 </div>
                 <div className="divider lg:divider-horizontal "></div>
-                <div className='w-2/3'>
-                  {selectedGroup && (<Chat group={selectedGroup} user={user}></Chat>)}
+                <div className='w-full h-96 items-center justify-center align-baseline'>
+                  {selectedGroup ? (<Chat group={selectedGroup} user={user}></Chat>) : (
+                    <div className='flex items-center justify-center'>
+                      <span className='text-xl text-blueGray-600'>You have no group</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </>
           )}
         </div>
-        </>
     )
   }
 

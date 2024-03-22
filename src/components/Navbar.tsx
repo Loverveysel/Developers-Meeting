@@ -13,7 +13,7 @@ const Navbar = (props: {user: any}) => {
       return (
         <div className='fixed flex-col inline-flex z-50 w-full bg-white justify-between items-center min-h-screen mx-auto px-4 text-white container shadow-2xl border-r-2 border-r-base-100' style={{width: 160}}>
           {/* Logo */}
-          <h2 className="text-2xl mt-16 font-bold leading-7 bg-gradient-to-r mx-auto from-purple-400 to-pink-600 bg-clip-text text-transparent items-center justify-start ">Meet Developers</h2>
+          <h2 className="text-2xl mt-16 font-bold leading-7 bg-gradient-to-r mx-auto from-accent to-blue-300 bg-clip-text text-transparent items-center justify-start ">Meet Developers</h2>
           
           {/* Navigation */}
           <ul className='flex-col mb-6'>
